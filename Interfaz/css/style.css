@@ -29,6 +29,11 @@ p {
     width: 100%;
   }
 
+nav {
+  position: relative;
+  z-index: 1000;
+}
+
 @media only screen and (max-width : 992px) {
   .parallax-container .section {
     position: absolute;
@@ -58,4 +63,57 @@ footer.page-footer {
 
 .indicator-item{
   padding: 7px;
+}
+
+.collection {
+  margin: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  height: 100vh;
+  position: fixed;
+  box-shadow: 1px 0px 3px rgba(0,0,0,.15),
+              2px 0px 5px rgba(0,0,0,.3);
+}
+
+.collection a, .collection li {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  border-bottom: 0 !important;
+  font-size: x-large;
+  transition: .4s ease-out !important;
+}
+
+.circle {
+  transition: .4s ease-out !important;
+}
+
+.collection a:hover, .collection a:hover .circle {
+  background-color: #e53935 !important;
+}
+
+.collection-title {
+ text-align: center; 
+ padding: 20px 0px;
+ margin: 0;
+}
+
+.collection-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px;
+}
+
+.img-wrap {
+  height: 7.5vw;
+  width: 30%;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.collection img {
+  width: 100%;
 }
