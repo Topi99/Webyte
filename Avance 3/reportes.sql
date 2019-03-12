@@ -42,4 +42,15 @@ create view donativosporpersona as
         donante,
         donativo
     WHERE ((usuario.id = donante.id_usuario) AND (usuario.id = donativo.donante_id))
-    GROUP BY usuario.nombre, usuario.apellido;
+GROUP BY usuario.nombre, usuario.apellido;
+
+
+--Extraer privilegios de un usario sin tanto drama
+CREATE VIEW usuario_privilegio AS
+  SELECT DISTINCT usuario.login, privilegio.nombre as priv
+  FROM usuario,usuario_rol as ur,rol,rol_privilegio as rp,privilegio
+  WHERE usuario.id = ur.id_usuario AND ur.id_rol = rol.id
+  ORDER BY usuario.login;
+
+--ejemplo de uso para la aplicación en una sola linea
+SELECT priv FROM usuario_privilegio WHERE login='admin'

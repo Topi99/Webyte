@@ -16,17 +16,6 @@ create table usuario
     unique (nombre, apellido)
 );
 
-
-create table staff
-(
-  usuario_id integer                 not null,
-  nacimiento timestamp default now() not null,
-  constraint staff_pk
-    primary key (usuario_id),
-  constraint staff_isa__fk
-    foreign key (usuario_id) references usuario
-);
-
 create table caja
 (
   id             serial       not null,
@@ -35,7 +24,7 @@ create table caja
   constraint table_name_pk
     primary key (id),
   constraint table_name_staff_usuario_id_fk
-    foreign key (responsable_id) references staff
+    foreign key (responsable_id) references usuario
 );
 
 create table rol
@@ -45,6 +34,23 @@ create table rol
   descripcion varchar(150) not null,
   constraint rol_pk
     primary key (id)
+);
+
+create table privilegio
+(
+  id          serial      not null
+    constraint privilegio_pk
+      primary key,
+  nombre      varchar(25) not null,
+  descripcion varchar(250)
+);
+
+create table rol_privilegio
+(
+  rol_id        integer not null,
+  privilegio_id integer not null,
+  constraint rol_privilegio_pk
+    primary key (rol_id, privilegio_id)
 );
 
 create table usuario_rol
@@ -98,7 +104,7 @@ create table beneficiario
   extranjero      boolean     default false    not null,
   indigente       boolean     default false    not null,
   profesion       varchar(50)                  not null,
-  
+
   constraint beneficiario_pk
     primary key (id),
   constraint beneficiario_nombre_apellido_key
@@ -179,14 +185,6 @@ create table gasto
     foreign key (proyecto_id) references proyecto
 );
 
-create table donante
-(
-  id_usuario serial not null,
-  constraint donante_pk
-    primary key (id_usuario),
-  constraint donante_usuario_id_fk
-    foreign key (id_usuario) references usuario
-);
 
 create table donativo
 (
@@ -198,7 +196,7 @@ create table donativo
   constraint donativo_pk
     primary key (id),
   constraint donativo_donante_id_usuario_fk
-    foreign key (donante_id) references donante,
+    foreign key (donante_id) references usuario,
   constraint donativo_proyecto_id_fk
     foreign key (proyecto_id) references proyecto
 );
@@ -215,6 +213,3 @@ create table proyecto_beneficiario
   constraint proyecto_beneficiario_proyecto_id_fk
     foreign key (proyecto_id) references proyecto
 );
-
-
-
